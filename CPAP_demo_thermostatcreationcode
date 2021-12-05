@@ -1,0 +1,55 @@
+/**  @author aidafakhry // print out of backup/restore script for PreferenceAdaptor 
+ * Using '/etc/openhab2r' as conf folder...
+ * Using 'var/lib/openhab2' as userdata folder...
+ * Making Temporary Directory 
+ * Extracting zip file to temporary folder
+ */
+/**
+ *
+ */
+module Thermostatcreation_ {
+	
+	/*// Importation of libraries for PreferenceAdaptor 
+	 * import org.PreferenceAdaptor.core.library.types // import library types 
+	 * import org.PreferenceAdaptor.core.persistence // this class provides static methods that can be used in automation rules for using persistence services
+	 * import org.PreferenceAdaptor.model.script.actions  // OpenHab: a timer is a handle for a block of code that is scheduled for future execution.
+	 * 
+	 * 
+	 * 
+	 * rule "CPAP Room" // Temperature 
+	 * 
+	 * when 
+	 *     Item Temperature_GF_Lounge_Mood received command
+	 * then
+	 * 		logInfo("house", "CPAP Room start") 
+	 * 
+	 * { //Dry intervals [May, June, July, August, and September] (18-20°C), Humidity --  30%: 
+	 * 
+	 * 		sendCommand(Temperature_GF_LoungeB, 60.8); 
+	 * 		// sendCommand(Temperature_GF_LoungeC 60.8): 
+	 * 		postUpdate(Temperature_GF_LoungeHumidifer, 64): 
+	 * 
+	 * } // Precipitation intervals [March and April] (15.5°C), Humidity -- 67%: 
+	 *
+	 * 		else if(recievedCommand ==2) {
+	 * 		sendCommand(Temperature_GF_LoungeB, 82.4) 
+	 *		// sendCommand(Temperature_GF_LoungeC 82.4): 
+	 *	 	postUpdate(Temperature_GF_LoungeHumidifer, 86): 
+	 *
+	 * } // Warmest interval [March] 30°C, Humidity -- 45% :  
+	 * 
+	 * 		else if(recievedCommand == 3) 
+	 * 		sendCommand(Temperature_GF_LoungeB, 68) 
+	 * 		// sendCommand(Temperature_GF_LoungeC 68): 
+	 * 		postUpdate(Temperature_GF_LoungeHumidifer, 77):
+	 * 
+	 * } // Summer [January, February, March, April, May, October, November and December], 27°C Humidity -- 50%: 
+	 *  	else if(recievedCommand == 4) 
+	 * 		sendCommand(Temperature_GF_LoungeB, 77) 
+	 * 		// sendCommand(Temperature_GF_LoungeC 77): 
+	 * 		postUpdate(Temperature_GF_LoungeHumidifer, 82.4):
+	 * 
+	 * 		logInfo("house", "Temperature " + Temperature_GF_Lounge_Mood.state) 
+	 * 
+	 */
+}
