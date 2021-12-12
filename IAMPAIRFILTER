@@ -1,0 +1,187 @@
+#!/usr/bin/env python
+# coding: utf-8
+
+# # IAPM Air Filter Test 
+# ## Non-woven air filter [equations, testing, results]
+# ### Data Analysis 
+# 
+# In this section the user will: 
+# 
+# - Download the dataset, 
+# - Anaylse the data, 
+# - Preprocess the data, 
+# - Apply a machine learning model. 
+# 
+
+# In[ ]:
+
+
+Trial 1. 					
+					
+		Material 1.	Material 2.	Material 3.	
+Debree caught [%]; 5 grams: 		70.45%	77.50%	85.40%	
+Debree caught [%]; 10 grams: 		65%	76%	82.30%	
+Debree caught [%]; 15 grams:		46%	74%	78.20%	
+Debree caught [%]; 20 grams:		43%	72.30%	74.30%	
+Absorbance [%]: thick density: 		4%	5%	6.50%	
+Absorbance [%]: regular liquid: 		5.40%	2.60%	3.40%	
+Micro/nano materials [%] trappage: 		78%	63%	82.30%	
+
+
+# In[ ]:
+
+
+Trial 2. 					
+					
+		Material 1.	Material 2.	Material 3.	
+Debree caught [%]; 5 grams: 		71.30%	76.35%	86.44%	
+Debree caught [%]; 10 grams: 		65%	77%	83.80%	
+Debree caught [%]; 15 grams:		47%	75%	77.20%	
+Debree caught [%]; 20 grams:		45%	74.30%	75.93%	
+Absorbance [%]: thick density: 		6%	6%	7.85%	
+Absorbance [%]: regular liquid: 		4.90%	3.40%	4.54%	
+Micro/nano materials [%] trappage: 		77%	64%	83.30%	
+
+
+# In[ ]:
+
+
+Trial 3. 					
+					
+		Material 1.	Material 2.	Material 3.	
+Debree caught [%]; 5 grams: 		72.35%	75.50%	85.40%	
+Debree caught [%]; 10 grams: 		63%	78%	82.30%	
+Debree caught [%]; 15 grams:		49%	74%	78.20%	
+Debree caught [%]; 20 grams:		44%	72.30%	74.30%	
+Absorbance [%]: thick density: 		5%	5%	6.50%	
+Absorbance [%]: regular liquid: 		5.80%	3.20%	3.40%	
+Micro/nano materials [%] trappage: 		79%	62%	84.30%	
+
+
+# In[4]:
+
+
+import numpy as np 
+from matplotlib import pyplot as plt 
+
+x = np.arange(1,21) 
+y = 2 * x + 5 
+plt.title("Analyzing data") 
+plt.xlabel("Grams") 
+plt.ylabel("Percentage of Efficiency") 
+plt.plot(x,y,"ob") 
+plt.show() 
+
+##example 
+##this should be annaylzed thoroughly by inserting 'pandas' and or 'numpy'
+
+
+# In[11]:
+
+
+from matplotlib import pyplot as plt 
+x = [71.3,76.35, 86.44] # trial 1. Material order: 1, 2, 3.  
+y = [72.35, 75.50, 85.40] # trial 2. Material order: 1, 2, 3. Chemical compounds can be found via the research paper. 
+
+plt.bar(x, y, align = 'center') 
+plt.bar(x2, y2, color = 'g', align = 'center') 
+plt.title('Debree caught [%]; 5 grams:') 
+plt.ylabel('Accuracy [%]') 
+plt.xlabel('Debree caught [%]')  
+
+plt.show()
+
+
+# In[12]:
+
+
+from matplotlib import pyplot as plt 
+x = [64.5,77, 83.80] # trial 1. Material order: 1, 2, 3.  
+y = [63, 78, 82.30] # trial 2. Material order: 1, 2, 3. Chemical compounds can be found via the research paper. 
+
+plt.bar(x, y, align = 'center') 
+plt.bar(x2, y2, color = 'g', align = 'center') 
+plt.title('Debree caught [%]; 10 grams:') 
+plt.ylabel('Accuracy [%]') 
+plt.xlabel('Debree caught [%]')  
+
+plt.show()
+
+
+# In[13]:
+
+
+from matplotlib import pyplot as plt 
+x = [46,74, 78] # trial 1. Material order: 1, 2, 3.  
+y = [47, 75, 77.20] # trial 2. Material order: 1, 2, 3. Chemical compounds can be found via the research paper. 
+
+plt.bar(x, y, align = 'center') 
+plt.bar(x2, y2, color = 'g', align = 'center') 
+plt.title('Debree caught [%]; 15 grams:') 
+plt.ylabel('Accuracy [%]') 
+plt.xlabel('Debree caught [%]')  
+
+plt.show()
+
+
+# In[15]:
+
+
+from matplotlib import pyplot as plt 
+x = [43,72.40, 74.30] # trial 1. Material order: 1, 2, 3.  
+y = [45, 74.30, 75.93] # trial 2. Material order: 1, 2, 3. Chemical compounds can be found via the research paper. 
+
+plt.bar(x, y, align = 'center') 
+plt.bar(x2, y2, color = 'g', align = 'center') 
+plt.title('Debree caught [%]; 20 grams:') 
+plt.ylabel('Accuracy [%]') 
+plt.xlabel('Debree caught [%]')  
+
+plt.show()
+
+
+# In[22]:
+
+
+## Examining absorbancy [Trial 1 - 2]
+import matplotlib.pyplot as plt
+get_ipython().run_line_magic('matplotlib', 'inline')
+
+
+# In[23]:
+
+
+absorbance_thickdensity_percent = [4,5,6.50,6,6,7.85,5,5,6.50]
+material = [1,2,3,1,2,3,1,2,3]
+plt.scatter(material,absorbance_thickdensity_percent)
+plt.xlabel("Material")
+plt.ylabel("Absorbance [%]");
+
+
+# In[26]:
+
+
+## Examining absorbancy [Trial 1 - 2]
+import matplotlib.pyplot as plt
+get_ipython().run_line_magic('matplotlib', 'inline')
+
+
+# In[29]:
+
+
+absorbance_regularliquid_percent = [5.4,2.60,3.4,4.9, 3.4, 4.54, 5.8, 3.2, 3.4] 
+material = [1,2,3,1,2,3,1,2,3]
+plt.scatter(material,absorbance_regularliquid_percent)
+plt.xlabel("Material")
+plt.ylabel("Absorbance [%]");
+
+
+# In[ ]:
+
+
+# Order: Material 1.	 Material 2.	Material 3.	
+Micro/nano materials [%] trappage: 		78%	63%	82.30%	
+Micro/nano materials [%] trappage: 		77%	64%	83.30%	
+Micro/nano materials [%] trappage: 		79%	62%	84.30%	
+
+
