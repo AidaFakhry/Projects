@@ -1,0 +1,112 @@
+"""P1.All further augementations will occur with NumPy and Python:
+Data argumentation proven to be very useful to avoid over-fitting and introduce variability during training deep neural networks."""
+from volumentations import *
+
+def get_augmentation():
+    return Compose([Rotate((-15, 15), (0, 0), (0, 0), p=0.5),
+                    Flip(0, p=0.5),
+                    Flip(1, p=0.5),
+                    Flip(2, p=0.5),
+                    ElasticTransform((0, 0.25), interpolation=2, p=0.1),
+                    RandomRotate90((1, 2), p=0.5),
+                    GaussianNoise(var_limit=(0, 5), p=0.2),
+                    RandomGamma(gamma_limit=(0.5, 1.5), p=0.2)], p=1.0)
+                    
+"""P1.All further augementations will occur with NumPy and Python:
+Data argumentation proven to be very useful to avoid over-fitting and introduce variability during training deep neural networks."""
+from __future__ import absolute_import, division, print_function, unicode_literals
+import tensorflow as tf
+import numpy as np
+import SimpleITK as sitk
+from volumentations import *
+
+########################-------Fucntions for tf records
+# The following functions can be used to convert a value to a type compatible
+# with tf.Example.
+def _bytes_feature(value):
+  """Returns a bytes_list from a string / byte."""
+  if isinstance(value, type(tf.constant(0))):
+    value = value.numpy() # BytesList won't unpack a string from an EagerTensor.
+  return tf.train.Feature(bytes_list=tf.train.BytesList(value=[value]))
+
+def _float_feature(value):
+  """Returns a float_list from a float / double."""
+  return tf.train.Feature(float_list=tf.train.FloatList(value=[value]))
+
+def _int64_feature(value):
+  """Returns an int64_list from a bool / enum / int / uint."""
+  return tf.train.Feature(int64_list=tf.train.Int64List(value=[value]))
+
+def augmentor(img):
+    aug = get_augmentation()
+    data = {'image': img}
+    aug_data = aug(**data)
+    img     = aug_data['image']
+    return np.ndarray.astype(img , np.float32)
+
+@tf.function
+def decode_ct_train(Serialized_example):
+    features={
+       'label1': tf.io.FixedLenFeature([],tf.int64),
+        'label2': tf.io.FixedLenFeature([],tf.int64),
+        'label3': tf.io.FixedLenFeature([],tf.int64),
+        'label4': tf.io.FixedLenFeature([],tf.int64),
+        'label5': tf.io.FixedLenFeature([],tf.int64),
+       'image':tf.io.FixedLenFeature([],tf.string),
+       'mask':tf.io.FixedLenFeature([],tf.string),
+       'Height':tf.io.FixedLenFeature([],tf.int64),
+       'Weight':tf.io.FixedLenFeature([],tf.int64),
+       'Depth':tf.io.FixedLenFeature([],tf.int64),
+       'label_shape':tf.io.FixedLenFeature([],tf.int64),
+        'Sub_id':tf.io.FixedLenFeature([],tf.string)
+
+     }
+    examples=tf.io.parse_single_example(Serialized_example,features)
+    ##Decode_image_float
+    image_1 = tf.io.decode_raw(examples['image'], float)
+    img_shape=[examples['Depth'],examples['Height'],examples['Weight']]
+    print(img_shape)
+    #Reshapping_the_data
+    img1=tf.reshape(image_1,img_shape)
+    ##-|wrapping up def agunentor(img) function using tf.numpy_function() function
+    result_tensor=tf.numpy_function(agunentor, [img1], tf.float32)
+    result_tensor.set_shape(img_shape)
+    img=tf.reshape(result_tensor,img_shape)
+    img=tf.expand_dims(img, axis=-1)
+    lbl=[examples['label1'],examples['label2'],examples['label3'],examples['label4'],examples['label5']]
+    return img,lbl
+   
+import tensorflow as tf
+from tensorflow.keras import layers 
+import matplotlib.pyplot as plt
+import numpy as np
+import os
+
+import tensorflow as tf
+from tensorflow import keras
+from tensorflow.keras import datasets, layers, optimizers, Sequential, metrics
+from tensorflow.python.framework.convert_to_constants import convert_variables_to_constants_v2
+import os
+import pathlib
+import random
+import matplotlib.pyplot as plt
+import numpy as np
+import nibabel as nib
+import imageio
+
+
+BUFFER_SIZE = 5000
+BATCH_SIZE = 583
+
+data_root = pathlib.Path('/Users/aidafatmefakhry/Documents/IntelProject/IXI-T1')
+print(data_root)
+for item in data_root.iterdir():
+    print(item)
+
+all_image_paths = list(data_root.glob('*/*'))
+all_image_paths = [str(path) for path in all_image_paths]
+random.shuffle(all_image_paths)
+image_count = len(all_image_paths)
+print(image_count)
+for i in range(583):
+    print("HI!")
